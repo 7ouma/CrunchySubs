@@ -19,7 +19,9 @@ La cuarta aún está en desarrollo y no funciona del todo bien por problemas de 
 
 Todas esas fallas y funciones desabilitadas temporalmente irán siendo reparadas/habilitadas en el transcurso de los días.
 
+Para los usan el programa en windows desde ejecutables, no sacaré ejecutable hasta terminar de corregir las cosas mencionadas arriba, por lo que si quieren usar este script deben instalar python 2.7.x
 
+*Créditos:*
 Autor original de la función para desencriptar: Desconocido para mí, si alguien sabe, favor dejar un comentario en el blog, por acá o mediante un correo a 7ouman@gmail.com.
 
 Autor del resto del script: Touman (Miguel A.).
