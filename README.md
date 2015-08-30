@@ -5,7 +5,7 @@ Basado en CrunchySubs 1.3.3. CrunchySubs 1.4 (Nombre temporal) está re-escrito 
 
 Al descargar los subtítulos hay varias formas de hacerlo. La primera, al ingresar el enlace de Crunchyroll, el script por defecto te mostrará la lista de idiomas disponibles. Al escoger uno o todos se descargará. Sin embargo, la primera vez que se inicia el script, se creará un archivo de configuraciones llamado Config.json. En él se podrá poner un lenguaje especifico para evitar que Crunchyroll nos pregunte cada vez el lenguaje que queremos. También, podemos poner un * (asterisco) para que crunchyroll descargue todos los idiomas disponibles automaticamente. Por defecto viene en "none" donde que como se menciona más arriba el script preguntará cada vez que vayas a descargar.
 
-Otra de las configuraciones es el directorio de descarga, si está en default descargará los subtitulos en la carpeta del script creando una carpeta adicional llamada "Subs". Si quieren agregar una ruta distinta deben de tener en cuenta que si están en windows, en vez de poner "c:\subtitulos" deberán escapar los caracteres y poner "c:\\subtitulos"
+Otra de las configuraciones es el directorio de descarga, si está en default descargará los subtitulos en la carpeta del script creando una carpeta adicional llamada "Subs". Si quieren agregar una ruta distinta deben de tener en cuenta que si están en windows, en vez de poner "c:\subtitulos" deberán escapar los caracteres y poner "c:\\\\subtitulos"
 
 Algo que hay que tener en cuenta es que por el momento no se permiten rutas que contengan caracteres especiales como áéíóúÑñ por problemas de codificación.
 
