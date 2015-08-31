@@ -30,6 +30,7 @@ from crypto.cipher.aes_cbc import AES_CBC
 from crypto.cipher.base import noPadding
 from array import array
 about = '''
+CrunchySubs v1.4 beta
 CrunchySubs es un script hecho en python que permite descargar subtítulos de Crunchyroll de forma premium y free.
 Créditos:
 Autor original de la función para desencriptar: Desconocido para mí, si alguien sabe, favor dejar un comentario en el blog, por Github o mediante un correo.
