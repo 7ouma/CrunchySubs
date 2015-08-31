@@ -1,7 +1,5 @@
 # encoding=utf8  
 #!/usr/bin/env python
-'''# -*- coding: utf-8 -*-'''
-
 from __future__ import print_function
 import sys  
 reload(sys)  
@@ -12,7 +10,7 @@ import shutil
 from time import sleep
 import re
 try:
-    from BeautifulSoup import BeautifulSoup
+    from BeautifulSoup import BeautifulSoup, BeautifulStoneSoup
 except ImportError as e:
     print("CrunchySubs necesita de BeautifulSoup3 para poder funcionar.")
     sleep(60)
@@ -30,9 +28,17 @@ import zlib
 import math as Math
 from crypto.cipher.aes_cbc import AES_CBC
 from crypto.cipher.base import noPadding
-from BeautifulSoup import BeautifulSoup, BeautifulStoneSoup
 from array import array
+about = '''
+CrunchySubs es un script hecho en python que permite descargar subtítulos de Crunchyroll de forma premium y free.
+Créditos:
+Autor original de la función para desencriptar: Desconocido para mí, si alguien sabe, favor dejar un comentario en el blog, por Github o mediante un correo.
 
+Autor del resto del script: Touman (Miguel A.). Más información del script en: http://crunchysubs.blogspot.com/ y https://github.com/7ouma/CrunchySubs
+
+Puedes contactarme mediante mi correo: 7ouman@gmail.com
+
+'''
 class Base64Decoder:
 	def __init__(self):
 		pass
@@ -252,7 +258,6 @@ class CrunchySubs(crunchyDec):
 
     def setConfig(self, config):
         try:
-            print (config)
             self.dir = config["dir"]
             while True:
                 if self.dir.lower() == "default":
@@ -322,8 +327,7 @@ class CrunchySubs(crunchyDec):
 
 
     def returnTitle(self,lang):
-    	titulo = self.titulo
-    	titulo = titulo[0:39] if len(titulo) > 40 else titulo
+    	titulo = self.titulo[0:39] if len(self.titulo) > 40 else self.titulo
     	i = 1
     	assfilename = self.checkStr(titulo + " - " + self.episodio + " ["+lang+"].ass")
     	while True:
@@ -335,7 +339,7 @@ class CrunchySubs(crunchyDec):
     	return assfilename
 
     def saveSubs(self, subs, title):	
-    	f = open(os.path.join(self.dir,title), 'wb')
+    	f = open(os.path.join(self.dir,title), 'w')
     	f.write(subs.encode('utf-8-sig'))
     	f.close()
     def checkStr(self, string):
@@ -648,8 +652,6 @@ Algunos lenguajes de los que tengo conocimiento son:
                 cls()
             elif option == "5":
                 print(about)
-            elif option == "6":
-                print (changelog)
             elif option == "0":
                 print("Gracias por usar CrunchySubs (:...")
                 Menu = False
