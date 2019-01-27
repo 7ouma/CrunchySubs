@@ -424,8 +424,8 @@ class CrunchySubs(crunchyDec):
             else:
                 url = "http://"+url
             url = url.replace(" ","")
-        if re.match(r"^((?:http|https):\/\/)(w{3}\.)?(crunchyroll.com\/[a-zA-Z0-9\-\_]+\/)((?:[a-zA-Z0-9\-\_]+)\-[0-9]+)",url):
-            url = re.match(r"^((?:http|https):\/\/)(w{3}\.)?(crunchyroll.com\/[a-zA-Z0-9\-\_]+\/)(?:(episode\-[0-9]+\-))?([a-zA-Z0-9\-\_]+\-)?([0-9]+)",url)
+        if re.match(r"^((?:http|https):\/\/)(w{3}\.)?(crunchyroll.com(?:\/[a-zA-Z\-]+){0,1}\/[a-zA-Z0-9\-\_]+\/)((?:[a-zA-Z0-9\-\_]+)\-[0-9]+)",url):
+            url = re.match(r"^((?:http|https):\/\/)(w{3}\.)?(crunchyroll.com(?:\/[a-zA-Z\-]+){0,1}\/[a-zA-Z0-9\-\_]+\/)(?:(episode\-[0-9]+\-))?([a-zA-Z0-9\-\_]+\-)?([0-9]+)",url)
             url = url.groups()
             media_id = url[5]
             xml = "http://www.crunchyroll.com/xml/?req=RpcApiVideoPlayer_GetMediaMetadata&media_id="+media_id
