@@ -1,3 +1,15 @@
+# ACTUALIZACIÓN 05-03-2019
+
+Debido a que Crunchyroll ahora usa Cloudflare de forma global (hace dos años comenzó solo en la sección de manga), tuve que adaptar el script para que funcione usando la librería externa cfscrape.
+
+Para poder hacer uso ahora deben instalar dicha librería:
+  pip install cfscrape -U
+  
+Además de tener instalado nodejs, como dice en su documentación.
+
+
+
+
 # CrunchySubs
 CrunchySubs es un script hecho en python que permite descargar subtítulos de Crunchyroll de forma premium y free.
 
