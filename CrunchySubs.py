@@ -19,7 +19,7 @@ import urllib2
 import os
 from urlparse import urlparse
 import json
-import cookielib
+from cookielib import LWPCookieJar
 import urllib
 from os import path
 import argparse
@@ -29,8 +29,19 @@ import math as Math
 from crypto.cipher.aes_cbc import AES_CBC
 from crypto.cipher.base import noPadding
 from array import array
+
+try:
+    import cfscrape
+except ImportError as e:
+    print("CrunchySubs necesita de cfscrape para poder funcionar. Comando: pip install cfscrape -U")
+    print("Sitio: https://github.com/Anorov/cloudflare-scrape")
+    sleep(60)
+    exit()
+
+
+
 about = '''
-CrunchySubs v1.4 beta
+CrunchySubs v1.4.2 beta
 CrunchySubs es un script hecho en python que permite descargar subtítulos de Crunchyroll de forma premium y free.
 Créditos:
 Autor original de la función para desencriptar: Desconocido para mí, si alguien sabe, favor dejar un comentario en el blog, por Github o mediante un correo.
@@ -253,6 +264,7 @@ class CrunchySubs(crunchyDec):
         self.errors = []
         self.PageError = []
         self.directorio = os.getcwd()
+        self.scraper = cfscrape.create_scraper()
         if setConfig:
             x = self.LoadSettings()
             if x:self.setConfig(x)
@@ -312,13 +324,13 @@ class CrunchySubs(crunchyDec):
             return False
 
     def cookies(self):
-        try:
-            with open("cookies.txt"):pass
-        except(OSError, IOError):
-            cookies = cookielib.MozillaCookieJar("cookies.txt")
-            cookies.save()
-            return False
-        return True
+		try:
+			with open('cookies.txt'): pass
+		except (OSError, IOError):
+			cookies = LWPCookieJar('cookies.txt')
+			cookies.save()
+			return False
+		return True
     def checkFile(self, name):
     	name = os.path.join(self.dir,name)
     	if os.path.isfile(name) and os.stat(name).st_size > 0:
@@ -376,27 +388,21 @@ class CrunchySubs(crunchyDec):
         self.code = ""
         self.cookies()
         try:
-            cookies = cookielib.MozillaCookieJar('cookies.txt')
-            cookies.load() 
-            opener = urllib2.build_opener(
-                urllib2.HTTPRedirectHandler(),
-                urllib2.HTTPHandler(debuglevel=0),
-                urllib2.HTTPSHandler(debuglevel=0),
-                urllib2.HTTPCookieProcessor(cookies))
-            opener.addheaders =[('Referer', 'http://www.crunchyroll.com'),('User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.14) Gecko/20080404 Firefox/2.0.0.14')]
+            cookies = self.scraper
+            cookies.cookies = LWPCookieJar('cookies.txt')
+            cookies.cookies.load()
             if login[0]:
                 data = {'formname' : 'RpcApiUser_Login', 'fail_url' : 'http://www.crunchyroll.com/login', 'name' : login[1], 'password' : login[2]}
-                response = opener.open(url, urllib.urlencode(data))
-                html = opener.open("http://www.crunchyroll.com")
-                if re.search(login[1]+'(?i)',html.read()):
-                    cookies.save()
+                response = self.scraper.post(url, data = data)
+                html = self.scraper.get("http://www.crunchyroll.com").content
+                if re.search(login[1]+'(?i)', html):
+                    cookies.cookies.save()
                     return True
                 else:
                     return False
             else:
-                response = opener.open(url)
-            html = response.read()
-            cookies.save()
+            	html = self.scraper.get(url).content
+            cookies.cookies.save()
             return html
         except urllib2.HTTPError, e:
             self.addError("Crunchyroll: Error - %s."%e.code)
